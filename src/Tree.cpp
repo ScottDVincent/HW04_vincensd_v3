@@ -27,10 +27,10 @@ using namespace std;		// standard library
 	 * Constructs Node object which points to itself and has a data_ member
 	 */  
 
-	Node::Node () {}
-
+	//Node::Node () {}
+	
 	Node::Node(){
-		left_ = right _ = null;		// create self-referential node; the assignments go in reverse order
+		left_ = right_ = NULL;		// create self-referential node; the assignments go in reverse order
 		data = new Entry();		
 		
 	}
@@ -58,6 +58,8 @@ void displayNode (Node* inNode){
 @param sentinel start counting from the sentinel
 *return an int with the number of nodes, including the sentinel
 */ 
+
+/**
 int nodeCount (Node* sentinel){
 
 		Node* cur = sentinel -> next_;
@@ -70,3 +72,4 @@ int nodeCount (Node* sentinel){
 		return theCount;
 
 }
+*/

@@ -31,7 +31,7 @@ public:
 	Node* right_;
 	
 	// a Entry object to hold data	
-	Entry data;		
+	Entry* data;		
 
 
    };   // end member declarations

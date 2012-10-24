@@ -23,9 +23,17 @@
 
 //my includes
 //#include "vincensdStarbucks.cpp"
-#include "Starbucks.h"
+#include "vincensdStarbucks.h"
+
+//c++ includes
 #include <iostream>
+#include <algorithm>
+#include <functional>
+#include <vector>
+#include <ctime>
+#include <cstdlib>
 #include <string>
+
 
 using namespace ci;
 using namespace ci::app;
@@ -52,10 +60,12 @@ class hw04_vincensd_v3App : public AppBasic {
 };
 
 
+
 void hw04_vincensd_v3App::prepareSettings(Settings* settings){
 	settings->setWindowSize(AppWidth,AppHeight);
 	settings->setResizable(false);
 }
+
 
 
 void hw04_vincensd_v3App::setup()
@@ -63,7 +73,7 @@ void hw04_vincensd_v3App::setup()
 
 	/** setup vars */
 	//Entry* e;
-	vector<Entry> entryVec;
+	std::vector<Entry> entryVec;
 		
 	/** Read .csv file into a vector */
 	//Open file
@@ -84,28 +94,6 @@ void hw04_vincensd_v3App::setup()
 		//Entry* e = new Entry();		// Mikes code: would cause a memory leak as we are not destroying the object at end 
 		
 
-/** Mike's code
->>>>>>> change tree.h location
-		infile.getline(next, 256, ',');
-		string s(next);
-		e->identifier = s;
-
-		infile.getline(next, 256, ',');
-		e->x = 0.0;//next; //parse next as double
-
-		infile.getline(next, 256, '\n');
-		e->y = 0.0;//next; //parse next as a double
-
-		
-	}
-}
-*/
-
-			
-			     //stringstream strstr(line);    	// create a strstr of stringstream type for manipulation
-				// char word[256];// = new char[256];
-
-
 				 getline(infile, line, ',');
 				 e.identifier = line;
 
@@ -115,35 +103,74 @@ void hw04_vincensd_v3App::setup()
 				 infile.get();
 				 infile >> e.y;
 
-
-				 /**
-				 getline(strstr, line, ',') >> e.identifier;
-
-				//stringstream strstr(line);
-				// strstr.getline(strstr, word, ',') >> e.identifier;
-				 //strstr.get();
-				 //strstr >> e -> x;
-				 //double d;
-				 //strstr >> d;
-
-				 //strstr.get();
-				 //strstr >> e -> y;
-
-				 entryVec.push_back(e);
-
-				 strstr.get();
-				 strstr >> e.y;
-				 */
-
 				 entryVec.push_back(e);	// split the string and add pieces onto back of vector
-
 	}
-			   	
-		  
-		cout << "End reading file" << endl;		
 
-		//Test Some Data to output our results
-		// input something // cin >>
+
+	/**CHECK FOR VALID INPUT
+		// just look at debugger to see entries
+		//	cout << "End reading file" << endl;					
+	*/
+			   	
+
+	/** REMOVE DUPLCIATES
+	// http://en.allexperts.com/q/C-1040/2011/4/remove-duplicates-vector.htm
+	*/
+		
+
+
+/**   // transform vector into array
+//http://www.cplusplus.com/reference/algorithm/copy/
+//http://stackoverflow.com/questions/2923272/how-to-convert-vector-to-array-c
+//http://choorucode.wordpress.com/2010/05/25/c-stl-copy-vector-to-array/
+// !!!http://bytes.com/topic/c/answers/849132-std-vector-c-array
+
+		
+		 /** this wont work as we need to allocate dynamic memory since 
+		 //we aren't calling a contant int for the array size
+		const int entrySize = entryVec.size();
+		Entry entryArr [ entrySize ];
+		cout << entryVec.size() << endl;	
+		*/
+		 Entry *entryArr = new Entry [ entryVec.size() ];
+
+		 // copy vector into array
+		 std::copy(entryVec.begin(), entryVec.end(), entryArr); 
+
+		/** or ...
+		for (int i = 0; i < (entryVec.size()-1); i++ ){
+			entryArr[i] = entryVec.at(i);
+		}*/
+		
+		/** test output in Autos window 
+		cout << "output = " << &entryArr[5] << endl;
+		cout << "output = " << &entryArr[6] << endl;
+		*/
+
+
+		// randomize entryArr 
+		// !! http://www.fredosaurus.com/notes-cpp/misc/random-shuffle.html
+		// http://www.dreamincode.net/code/snippet596.htm
+		// http://www.cplusplus.com/reference/algorithm/random_shuffle/
+		
+		  srand(time(0));  // initialize seed "randomly"
+		  for (int i=0; i < (entryVec.size()-1); i++) {
+            int r = i + (rand() % (entryVec.size()-i)); // Random remaining position.
+            Entry temp = entryArr[i]; 
+			entryArr[i] = entryArr[r]; 
+			entryArr[r] = temp;
+        }
+
+		  /** test output in Autos window*/ 
+		cout << "output = " << &entryArr[5] << endl;
+		cout << "output = " << &entryArr[6] << endl;
+
+		// call build to create data structure
+		//vincensdStarbucks::build(&entryArr, entrySize );
+
+		
+
+
 
 /**
 
@@ -160,25 +187,6 @@ void hw04_vincensd_v3App::setup()
 	
 
 
-/**
-		// transform vector into array
-		
-		Entry entryArr[ entryVec.size() ]; 
-
-		for (int i = 0; i < entryVec.size(); i++ ){
-			entryArr[i] = entryVec.at(i);
-
-		}
-
-
-		// randomize entryArr 
-	
-
-		// call build to create data structure
- 
-		vincensdStarbucks.build(&entryArr, entryVec.size() );
-
-	*/	
 
 
 		/**
@@ -199,7 +207,7 @@ void hw04_vincensd_v3App::update()
 void hw04_vincensd_v3App::draw()
 {
 	// clear out the window with black
-	gl::clear( Color( 0, 0, 0 ) ); 
+	//gl::clear( Color( 0, 0, 0 ) ); 
 }
 
 CINDER_APP_BASIC( hw04_vincensd_v3App, RendererGl )

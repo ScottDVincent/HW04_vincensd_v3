@@ -22,7 +22,8 @@
 #include "cinder/Text.h"
 
 //my includes
-#include "vincensdStarbucks.cpp"
+//#include "vincensdStarbucks.cpp"
+#include "Starbucks.h"
 #include <iostream>
 #include <string>
 

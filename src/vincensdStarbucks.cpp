@@ -46,15 +46,17 @@
 	void vincensdStarbucks::build(Entry* c, int n){
 		
 		//int addyCounter = c;
-		Entry *entryArrBld = new Entry [n];	// as in setup, we have to do a dynamic array definition to use 'n'
-		
-		for (int i = 0; i < (n-1); i++ ){
-			entryArrBld[i] = *c;		//put in the dereferenced Entry object into array slot
-			c = c + 48;					// add 48 bytes (size of Entry object) to the address of c to get the next entry
+		//Entry *entryArrBld = new Entry [n];	// as in setup, we have to do a dynamic array definition to use 'n'
+		entryArrBld  = new Entry [n];
+		arraySize = n;
+
+		for (int i = 0; i <= (arraySize-1); i++ ){ 
+			entryArrBld[i] = *c;		// put in the dereferenced Entry object into array slot
+			c = c + 1;					// add 48 bytes (size of Entry object) to the address of c to get the next entry
 		}
 
 		cout << "output = " << &entryArrBld[2] << endl;
-		cout << "output = " << &entryArrBld[3] << endl;
+		cout << "output = " << &entryArrBld[7654] << endl;
 	}
 	
 	/*
@@ -65,38 +67,45 @@
 	
 	Entry* vincensdStarbucks::getNearest(double x, double y) {
 		
-		Entry* e = NULL;
-		
+		Entry* e;
+		double qX = x;
+		double qY = y;
+		double difX, finX ;
+		double difY, finY;
 		/**	
-		for (int i = 0; i < the_list.size(); i=i+3)	// iterate thru vector
-		cout << the_list.at(i) << '\n';				// write vector contents
-
+		*/
 		// set distance of first point
-		double distanceSmallest* = 1.1;
+		double distanceSmallest = 1.1;
 
 		// loop thru points
-		for (int i = 1; i <= the_list.back; i++) {
-		
-		//Have to convert string into double
-			//http://www.cplusplus.com/forum/articles/9645/
-			// double nX = the_list.at(i+1)
-			// double nY = the_list.at(i+2)
+		for (int i = 1; i <= arraySize; i++) {
+				
+			double starX = entryArrBld[i].x;
+			double starY = entryArrBld[i].y;
 
-		double distanceTwo* = sqrt( ((x - nX)^2) + ((y - nY)^2) );
-			if  (distanceTwo* < distanceSmallest*)
-					distanceSmallest* = distanceTwo*;
-			// ? how to equate the Entry w/ the smallest (x,y) coords
+			// find x
+			difX = abs(qX - starX);
+			finX = pow(difX, 2);
+			// find y
+			difY = abs(qY - starY);
+			finY = pow(difY, 2);
 
+
+		double distanceTwo = sqrt( finX + finY );
+			if  (distanceTwo < distanceSmallest)
+					distanceSmallest = distanceTwo;
+					// ? how to equate the Entry w/ the smallest (x,y) coords
+					e = &entryArrBld[i]; // make e = to the '&' address of entryArrBld
 		  }
 
-		// return the Entry with the nearest location
-		// distanceSmallest isn't the correct thing to return
-		return distanceSmallest* ;
-
-	
-	*/
+		//check result of shortestDistance
+		cout << "Identity is: " << e ;
 		
-		return e ;
-	}
+		// return the Entry with the nearest location
+		return e;
+		
+		
+
+	} // end getNearest
 
 	

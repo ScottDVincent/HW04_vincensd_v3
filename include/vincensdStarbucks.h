@@ -11,12 +11,14 @@
  
 #pragma once
 #include "Starbucks.h"
+// std includes
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <string>
 #include <vector>
 #include <math.h>
+#include <cmath>
 
 using namespace std;
 std::stringstream;
@@ -26,6 +28,10 @@ std::stringstream;
  class vincensdStarbucks : public Starbucks{
 public:
 	
+	// Members vars
+	Entry* entryArrBld; 
+	int arraySize;
+
 	/**
 	Constructor Method
 	*/
@@ -39,7 +45,7 @@ public:
 	/** 
 	Member vars
 	*/
-	vector<Entry> entryVec;
+	//vector<Entry> entryVec;
 	
 
 	/*

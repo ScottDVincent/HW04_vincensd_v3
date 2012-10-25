@@ -131,21 +131,22 @@ void hw04_vincensd_v3App::setup()
 		Entry entryArr [ entrySize ];
 		cout << entryVec.size() << endl;	
 		*/
-		 const int entrySize = entryVec.size(); // size of array
+		 const int entrySize = entryVec.size();					// size of new array
 
 		 Entry *entryArr = new Entry [ entryVec.size() ];		// have to create a dynamic array of type Entry
 
 		 // copy vector into array
-		 std::copy(entryVec.begin(), entryVec.end(), entryArr); 
+		// std::copy(entryVec.begin(), entryVec.end(), entryArr); 
 
-		/** or ...
+		/** or ...*/
 		for (int i = 0; i < (entryVec.size()-1); i++ ){
 			entryArr[i] = entryVec.at(i);
-		}*/
+		}
 		
 		/** test output in Autos window 
 		cout << "output = " << &entryArr[2] << endl;
 		cout << "output = " << &entryArr[3] << endl;
+		cout << "output = " << &entryArr[7654] << endl;
 		*/
 
 
@@ -165,21 +166,26 @@ void hw04_vincensd_v3App::setup()
 		  /** test output in Autos window*/ 
 		cout << "output = " << &entryArr[2] << endl;
 		cout << "output = " << &entryArr[3] << endl;
+		cout << "output = " << &entryArr[7654] << endl;
 
 
 		// call build to create data structure
 		vincensdStarbucks starObject;
 		starObject.build(entryArr, entrySize );	   // correct because of *entryArr, what build is expecting; an Entry* type
-		//starObject.build(&entryArr, entrySize ); // this would be incorrect because I already declared entryArr to be a pointer *entryArr 
-		delete [] entryArr;						   // on return from build, delete this array and free up memory
+		//starObject.build( &entryArr, entrySize ); // this would be incorrect because I already declared entryArr to be a pointer *entryArr 
+		//delete [] entryArr;						// on return from build, delete this array and free up memory
 												   // use array in build space to do calculations	
 		
 
 
-/**
+/** 	//Entry* getNearest(double x, double y)*/	
 
-		Entry* getNearest(double x, double y)
-*/	
+		starObject.getNearest(.405029495, .0869224385);
+
+		//show object
+		//cout << "Closets neighbor is: " *e.indentifier << endl;
+
+
 				
 	
 		/** DESTROY object

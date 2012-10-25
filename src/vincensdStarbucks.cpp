@@ -26,7 +26,7 @@
 
 	/** 
 	*vincensdStarbucks constructor
-	do I really need a constructir with parameters?
+	do I really need a constructor with parameters?
 	 */ 
 	//vincensdStarbucks::vincensdStarbucks( /** what do I want in here?  */){}
 	
@@ -45,7 +45,16 @@
 	 */
 	void vincensdStarbucks::build(Entry* c, int n){
 		
+		//int addyCounter = c;
+		Entry *entryArrBld = new Entry [n];	// as in setup, we have to do a dynamic array definition to use 'n'
+		
+		for (int i = 0; i < (n-1); i++ ){
+			entryArrBld[i] = *c;		//put in the dereferenced Entry object into array slot
+			c = c + 48;					// add 48 bytes (size of Entry object) to the address of c to get the next entry
+		}
 
+		cout << "output = " << &entryArrBld[2] << endl;
+		cout << "output = " << &entryArrBld[3] << endl;
 	}
 	
 	/*

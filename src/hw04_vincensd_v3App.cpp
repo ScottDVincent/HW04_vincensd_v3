@@ -84,9 +84,7 @@ void hw04_vincensd_v3App::setup()
 	}
 
 	string line;
-	//char next[256];
-
-
+	
 	//Fill the vector with entry data
 	while ( !infile.eof() ) {
 		     
@@ -127,12 +125,15 @@ void hw04_vincensd_v3App::setup()
 
 		
 		 /** this wont work as we need to allocate dynamic memory since 
-		 //we aren't calling a contant int for the array size
+			we aren't calling a contant int for the array size...
+
 		const int entrySize = entryVec.size();
 		Entry entryArr [ entrySize ];
 		cout << entryVec.size() << endl;	
 		*/
-		 Entry *entryArr = new Entry [ entryVec.size() ];
+		 const int entrySize = entryVec.size(); // size of array
+
+		 Entry *entryArr = new Entry [ entryVec.size() ];		// have to create a dynamic array of type Entry
 
 		 // copy vector into array
 		 std::copy(entryVec.begin(), entryVec.end(), entryArr); 
@@ -143,8 +144,8 @@ void hw04_vincensd_v3App::setup()
 		}*/
 		
 		/** test output in Autos window 
-		cout << "output = " << &entryArr[5] << endl;
-		cout << "output = " << &entryArr[6] << endl;
+		cout << "output = " << &entryArr[2] << endl;
+		cout << "output = " << &entryArr[3] << endl;
 		*/
 
 
@@ -162,35 +163,26 @@ void hw04_vincensd_v3App::setup()
         }
 
 		  /** test output in Autos window*/ 
-		cout << "output = " << &entryArr[5] << endl;
-		cout << "output = " << &entryArr[6] << endl;
+		cout << "output = " << &entryArr[2] << endl;
+		cout << "output = " << &entryArr[3] << endl;
+
 
 		// call build to create data structure
-		//vincensdStarbucks::build(&entryArr, entrySize );
-
+		vincensdStarbucks starObject;
+		starObject.build(entryArr, entrySize );	   // correct because of *entryArr, what build is expecting; an Entry* type
+		//starObject.build(&entryArr, entrySize ); // this would be incorrect because I already declared entryArr to be a pointer *entryArr 
+		delete [] entryArr;						   // on return from build, delete this array and free up memory
+												   // use array in build space to do calculations	
 		
-
 
 
 /**
 
-		Entry* getNearest(double x, double y) {
-
-		for (int i = 0; i < the_list.size(); i=i+3)	// iterate thru vector
-		cout << the_list.at(i) << '\t';				// write vector contents
-		cout << the_list.at(i+1) << '\t';
-		cout << the_list.at(i+2) << '\t';
-		cout << '\n';
-		}
+		Entry* getNearest(double x, double y)
 */	
 				
 	
-
-
-
-
-		/**
-		DESTROY object
+		/** DESTROY object
 		*/
 
 

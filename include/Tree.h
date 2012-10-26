@@ -42,7 +42,14 @@ public:
 	* void contains
 	* @param Node* delNode: Pointer to addy of the node to be deleted
 	*/
-	bool contains(Entry*);	
+	Entry* contains(Key k, Node* r);	
+
+	/**
+	* void printInOrder
+	* @param Node* r: Pointer to addy of the node 
+	*/
+	void printInOrder (Node* r)
+
 
 	/**
 	* void search
@@ -58,36 +65,31 @@ public:
 	*/
 	Node* insert (Entry e, Node* r);
 
-////////////////////// Stuff from previous project //////////////////////////////////////////////
-
-
 
 	/**
-	* void diplayList
-	* @param node* inNode 
-	* calls the drawRect function 
+	* Entry* next
+	* @param node* r 
+	* @param key
 	*/
-	void displayNode (Node* inNode);
+	Node* next(Node* r, key) ; 
 	
 
-
 	/**
-	* int nodeCount
-	* return an int with the number of nodes, including the sentinel 
+	* Entry* nearest
+	* @param k
 	*/
-	int nodeCount ();
-
-
-	/**
-	* bool isEmpty();
-	* returns true if at end of list
-	*/
-	bool atEnd();
+	Entry* nearest(key k);
 
 
 	/**
-	* bool isEmpty();
-	* returns true if list is empty. 
-	* really shouldn't need this as I'm planning to go with a never-empty list
+	* Node* remove
+	* @param Node* r
+	* @param k
 	*/
-	bool isEmpty();
+	Node* remove (Node* r, key)
+
+	/**
+	* Node* min
+	* 
+	*/
+	Node* min(Node* r);

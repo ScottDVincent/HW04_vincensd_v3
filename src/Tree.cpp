@@ -35,41 +35,182 @@ using namespace std;		// standard library
 		
 	}
 
-	// have to do something to create the root node
+	// ?? have to do something to create the root node ?? -- I dont think so
 	Node* root;
+	Key k; // k = (x & y, 2 doubles 
+
+	/**
+	* Entry* contains
+	* @param Key k, 
+	* @param Node* r
+	*/
+	Entry* contains(Key k, Node* r) {
+		if (r ==NULL)  
+			return NULL; 
+
+		if ( r-> key == k) 
+			return &(r -> data);
+
+		if ( k < r -> key) {
+				return contains (k, r -> left_ );
+		} else {
+				return contains (k, r -> right_ );
+		}
 
 
-///////////////////////////////////////////////////////////////////////////////
+	}	// end contains
 
-/**
-* displayNode
-*@param inNode 
-*argument is a a single Node object, passed in from traverseList,  to be printed
-*/
-void displayNode (Node* inNode){		
-	  
-	// draw this single node being passed in
-}
 
+	/**
+	* void printInOrder
+	* @param Node* r: Pointer to addy of the node 
+	*/
+	void printInOrder (Node* r) {
+		if (root == NULL ) 
+			return;
+
+		printInOrder (r-> left_);
+		cout << r -> data << flush;
+		printInOrder (r -> right_);
+	
+	} // end pIO
+
+
+
+	/**
+	* void search
+	* @param string: Key value
+	* @param Node* r: Pointer to addy of the node 
+	*/
+	Entry* search(Key k, Node* r){ 
+
+		if (r == NULL)
+			return NULL;
+		if (Key == r -> Key)
+			return r -> Entry;	// this would never happen that q would be the location
+
+		Entry* best_left = search (Key k , r -> left_, !isXLevel);
+		Entry* best_right = search (Key k, r -> right_; !isXLevel;
+		Entry* current_entry = r -> data;
+
+
+
+	} //end search
+
+
+
+	/**
+	* void insert
+	* @param Entry: Entry object we are adding to the tree
+	* @param Node* r: Pointer to addy of the node 
+	*/
+	Node* insert (Entry e, Node* r){ 
+
+		if ( r == NULL)
+			return new Node*(e);
+		if (r -> key == e -> key) 
+			return r;
+
+		// for x Level
+		if (e -> key < r -> key){
+			r -> left_ = insert (e, r-> left_, !isXLevel);     //
+		} else {
+			r -> right_ = insert (e, r -> right_, !isXLevel);	//
+		} 
+
+		//for Y Level
+		if (e -> key > r -> key){
+			r -> left_ = insert (e, r-> left_, !isYLevel);     //
+		} else {
+			r -> right_ = insert (e, r -> right_, !isYLevel);	//
+		} 
+
+		return r;
+	}
+
+
+
+	/**
+	* Node* next
+	* @param node* r 
+	* @param key
+	*/
+	Node* next(Node* r, key){
+		if (r== NULL) { 
+		return NULL;
+		
+		} else if  (key > r-> key) {
+		 return next (key, r -> right_);
+		 
+		} else {
+			Node* temp = next (key, r -> left_); 
+		 
+		 if (temp == NULL){
+			  return r;
+		  } else {
+			  return temp;
+	  }
+	}
+
+	/**
+	* Entry* nearest
+	* @param k
+	*/
+	Entry* nearest(key) {
+		
+		}
+
+
+	/**
+	* void remove
+	* @param k
+	* @param k
+	*/
+	Node* remove (Node* r, key) {
+
+		if (r == NULL) { 
+			return r;
+		 } else if {
+		  ( r -> key == key) {
+
+				if (r -> left_ == NULL) {
+				 Node* temp = r -> right_;
+				 delete r;
+				 return temp;
  
+				 } else if {
+					 ( r -> right_ == NULL){
+					 Node* temp = r -> left_;
+					 delete r;
+					 return temp;
 
-/**
-* nodeCount
-@param sentinel start counting from the sentinel
-*return an int with the number of nodes, including the sentinel
-*/ 
+				 } else {					// has two children
+					 Node* temp = min (r-> right_);
+					 swap (temp,r);
+					 r -> right_ = remove (key, r->right_); // lazy update
+					 return r;	
+		
+			 } else {
+		
+					if (k < r -> key) {
+						r -> left_ = remove (key, r-> left_);
+						return r;
+			
+					} else {
+						r -> left_ = remove (key, r-> left_);
+						return r;
+						}
+				}
+		 }
 
-/**
-int nodeCount (Node* sentinel){
-
-		Node* cur = sentinel -> next_;
-		int theCount = 1;				// includes the sentinel
-
-		while(cur != sentinel) {
-			theCount++;
-			cur = cur->next_;
-			}
-		return theCount;
-
-}
-*/
+	/**
+	* Node* min
+	* 
+	*/
+	Node* min(Node* r) {
+		if (r == NULL || r -> left_ == NULL)  {
+			return r;
+		} else {
+			return min ( r-> left_);
+		}
+	} // end min

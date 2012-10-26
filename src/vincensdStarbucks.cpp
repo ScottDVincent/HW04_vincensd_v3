@@ -97,7 +97,7 @@
 					distanceSmallest = distanceTwo;
 					// ? how to equate the Entry w/ the smallest (x,y) coords
 					closestBucks = &entryArrBld[i]; // make Entry* = to the '&' address of entryArrBld
-					} // i ends up = 7656, one more than the arraySize of 7655, and two more than the iterations which should be 7654
+					} // ?? i ends up = 7656, one more than the arraySize of 7655, and two more than the iterations which should be 7654, but 7653 actually shows the last entry (yuma, az)
 		  } // end for
 
 		//check result of shortestDistance

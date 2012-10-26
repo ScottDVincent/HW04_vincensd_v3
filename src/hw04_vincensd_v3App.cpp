@@ -86,7 +86,7 @@ void hw04_vincensd_v3App::setup()
 	string line;
 	
 	//Fill the vector with entry data
-	while ( !infile.eof() ) {
+	  do { //while ( !infile.eof() )
 		     
 		Entry e;		// for each iteration create a new entry vaiable to hold the input values, don't need a cnostructed object
 		//Entry* e = new Entry();		// Mikes code: would cause a memory leak as we are not destroying the object at end 
@@ -103,6 +103,9 @@ void hw04_vincensd_v3App::setup()
 
 				 entryVec.push_back(e);	// split the string and add pieces onto back of vector
 	}
+		while ( !infile.eof() );
+
+	
 
 
 	/**CHECK FOR VALID INPUT
@@ -131,6 +134,7 @@ void hw04_vincensd_v3App::setup()
 		Entry entryArr [ entrySize ];
 		cout << entryVec.size() << endl;	
 		*/
+
 		 const int entrySize = entryVec.size();					// size of new array
 
 		 Entry *entryArr = new Entry [ entryVec.size() ];		// have to create a dynamic array of type Entry
@@ -150,11 +154,11 @@ void hw04_vincensd_v3App::setup()
 		*/
 
 
-		// randomize entryArr 
+		// RANDOMIZE ENTRYARR
 		// !! http://www.fredosaurus.com/notes-cpp/misc/random-shuffle.html
 		// http://www.dreamincode.net/code/snippet596.htm
 		// http://www.cplusplus.com/reference/algorithm/random_shuffle/
-		
+	/**	
 		  srand(time(0));  // initialize seed "randomly"
 		  for (int i=0; i < (entryVec.size()-1); i++) {
             int r = i + (rand() % (entryVec.size()-i)); // Random remaining position.
@@ -162,18 +166,19 @@ void hw04_vincensd_v3App::setup()
 			entryArr[i] = entryArr[r]; 
 			entryArr[r] = temp;
         }
+		*/
 
 		  /** test output in Autos window*/ 
 		cout << "output = " << &entryArr[0] << endl;
 		cout << "output = " << &entryArr[1] << endl;
-		cout << "output = " << &entryArr[7654] << endl;
+		cout << "output = " << &entryArr[7653] << endl;
 
 
 		// call build to create data structure
 		vincensdStarbucks starObject;
-		starObject.build( entryArr, entrySize );	   // correct because of *entryArr, what build is expecting; an Entry* type
+		starObject.build( entryArr, entrySize );	 // correct because of *entryArr, what build is expecting; an Entry* type
 		//starObject.build( &entryArr, entrySize ); // this would be incorrect because I already declared entryArr to be a pointer *entryArr 
-		//delete [] entryArr;						// on return from build, delete this array and free up memory			
+		delete [] entryArr;						// on return from build, delete this array and free up memory			
 												   // use array in build space to do calculations	
 		
 

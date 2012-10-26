@@ -124,24 +124,24 @@ void hw04_vincensd_v3App::setup()
 //http://www.cplusplus.com/reference/algorithm/copy/
 //http://stackoverflow.com/questions/2923272/how-to-convert-vector-to-array-c
 //http://choorucode.wordpress.com/2010/05/25/c-stl-copy-vector-to-array/
-// !!!http://bytes.com/topic/c/answers/849132-std-vector-c-array
 
-		
 		 /** this wont work as we need to allocate dynamic memory since 
 			we aren't calling a contant int for the array size...
 
-		const int entrySize = entryVec.size();
-		Entry entryArr [ entrySize ];
-		cout << entryVec.size() << endl;	
+				const int entrySize = entryVec.size();
+				Entry entryArr [ entrySize ];
+				cout << entryVec.size() << endl;	
 		*/
 
 		 const int entrySize = entryVec.size();					// size of new array
 
+
 		 Entry *entryArr = new Entry [ entryVec.size() ];		// have to create a dynamic array of type Entry
+																// http://bytes.com/topic/c/answers/849132-std-vector-c-array
 
-		 // copy vector into array
+
+		 // copy vector into array: two approaches
 		// std::copy(entryVec.begin(), entryVec.end(), entryArr); 
-
 		/** or ...*/
 		for (int i = 0; i < (entryVec.size()-1); i++ ){
 			entryArr[i] = entryVec.at(i);
@@ -150,6 +150,7 @@ void hw04_vincensd_v3App::setup()
 		/** test output in Autos window 
 		cout << "output = " << &entryArr[0] << endl;
 		cout << "output = " << &entryArr[1] << endl;
+		cout << "output = " << &entryArr[7653] << endl;
 		cout << "output = " << &entryArr[7654] << endl;
 		*/
 
@@ -158,7 +159,7 @@ void hw04_vincensd_v3App::setup()
 		// !! http://www.fredosaurus.com/notes-cpp/misc/random-shuffle.html
 		// http://www.dreamincode.net/code/snippet596.htm
 		// http://www.cplusplus.com/reference/algorithm/random_shuffle/
-	/**	
+		/**	
 		  srand(time(0));  // initialize seed "randomly"
 		  for (int i=0; i < (entryVec.size()-1); i++) {
             int r = i + (rand() % (entryVec.size()-i)); // Random remaining position.
@@ -172,29 +173,29 @@ void hw04_vincensd_v3App::setup()
 		cout << "output = " << &entryArr[0] << endl;
 		cout << "output = " << &entryArr[1] << endl;
 		cout << "output = " << &entryArr[7653] << endl;
+		cout << "output = " << &entryArr[7654] << endl;
 
 
-		// call build to create data structure
+		// call BUILD to create data structure
 		vincensdStarbucks starObject;
-		starObject.build( entryArr, entrySize );	 // correct because of *entryArr, what build is expecting; an Entry* type
-		//starObject.build( &entryArr, entrySize ); // this would be incorrect because I already declared entryArr to be a pointer *entryArr 
-		delete [] entryArr;						// on return from build, delete this array and free up memory			
-												   // use array in build space to do calculations	
+		starObject.build( entryArr, entrySize );	 // correct because of *entryArr definition, what build is expecting; an Entry* type
+		//starObject.build( &entryArr, entrySize );  // this would be incorrect because I already declared entryArr to be a pointer *entryArr 
+		delete [] entryArr;							 // on return from build, delete this array and free up memory			
+												  	
 		
 
-
-/** 	//Entry* getNearest(double x, double y)*/	
+		 //  use array in build space to do calculations
+	  	//Entry* getNearest(double x, double y)*/	
 
 		//starObject.getNearest(.405029495, .0869224385); // mcAllen Tx
 		starObject.getNearest( 0.213636113, 0.438262 );  // sedona, az
 		
 
-
-		//show object
+		//display returned nearest object
 		cout << "Closets neighbor is: " << starObject.closestBucks -> identifier << endl;
 
 	
-		/** DESTROY object
+		/** DESTROY objects
 		*/
 
 

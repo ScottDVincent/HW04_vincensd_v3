@@ -27,7 +27,7 @@ using namespace std;		// standard library
 	 * Constructs Node object which points to itself and has a data_ member
 	 */  
 
-	//Node::Node () {}
+	Node::Node () {}
 	
 	Node::Node(){
 		left_ = right_ = NULL;		// create self-referential node; the assignments go in reverse order
@@ -35,9 +35,10 @@ using namespace std;		// standard library
 		
 	}
 
-	// ?? have to do something to create the root node ?? -- I dont think so
-	Node* root;
-	Key k; // k = (x & y, 2 doubles 
+
+	// ?? have to do something to create the root node ?? -- I dont think so -- no Node* root;
+	
+	Key k; // k = (x & y, 2 doubles)
 
 	/**
 	* Entry* contains
@@ -184,7 +185,7 @@ using namespace std;		// standard library
 					 delete r;
 					 return temp;
 
-				 } else {					// has two children
+				 } else {									// has two children
 					 Node* temp = min (r-> right_);
 					 swap (temp,r);
 					 r -> right_ = remove (key, r->right_); // lazy update
@@ -203,6 +204,8 @@ using namespace std;		// standard library
 				}
 		 }
 
+
+
 	/**
 	* Node* min
 	* 
@@ -214,3 +217,10 @@ using namespace std;		// standard library
 			return min ( r-> left_);
 		}
 	} // end min
+
+
+	/** 
+	Node* max
+	* code from remove
+	*
+	*/

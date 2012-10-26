@@ -34,6 +34,15 @@ public:
 	Entry* closestBucks;
 
 	/**
+	double keyX;
+	double keyY;
+	bool isXLevel;
+	bool isYLevel;
+	*/
+
+
+
+	/**
 	Constructor Method
 	*/
 	// no arguemnt constructor
@@ -73,3 +82,22 @@ public:
 
 
 };
+
+ class Node{
+public:		
+
+//constructors
+	Node();
+	Node(Entry e);
+
+			
+	// node pointers in the tree
+	Node* left_;
+	Node* right_;
+	
+	// a Entry object to hold data	
+	Entry* data;		
+
+
+   };   // end member declarations
+

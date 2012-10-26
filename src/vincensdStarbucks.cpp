@@ -17,6 +17,18 @@
 #include "vincensdStarbucks.h"
 
 
+	/** 
+	 * Constructs Node object which points to itself and has a data_ member
+	 */  
+
+	Node::Node () {}
+	
+	Node::Node(){
+		left_ = right_ = NULL;		// create node; the assignments go in reverse order
+		data = new Entry();		
+		
+	}
+
 
 	/** 
 	*Default vincensdStarbucks constructor
@@ -43,6 +55,8 @@
 	 then do not add the new item that has the same coordinates as another item. 
 	 This is guaranteed to happen, by the way, because some Starbucks locations are listed in the database twice. We will define two locations to be the "same location" if both |x1 - x2| <= 0.00001 and |y1 - y2| < 0.00001
 	 */
+
+	//rename to buildArray
 	void vincensdStarbucks::build(Entry* c, int n){
 		
 		//int addyCounter = c;
@@ -57,6 +71,8 @@
 		}
 
 		cout << "output = " << &entryArrBld[0] << endl;
+		cout << "output = " << &entryArrBld[1] << endl;
+		cout << "output = " << &entryArrBld[7653] << endl;
 		cout << "output = " << &entryArrBld[7654] << endl;
 	}
 	
@@ -111,3 +127,54 @@
 	} // end getNearest
 
 	
+	/**
+	* void search
+	* @param string: Key value
+	* @param Node* r: Pointer to addy of the node 
+	*/
+	Entry* search(double xK, double yK, Node* r, bool isXLevel){ 
+
+		if (r == NULL)				//base case
+			return NULL;
+		if ( (xK  == r -> Key) && (yK  == r -> Key) )   // this would never happen that q would be the exact location
+			return r -> closestBucks;						
+
+		Entry* best_left = search (xK, yK, r -> left_, !isXLevel);
+		Entry* best_right = search (xK, yK, r -> right_, !isXLevel);
+		Entry* current_entry = r -> data;
+
+	} //end search
+
+
+
+	/**
+	* void insert
+	* @param Entry: Entry object we are adding to the tree
+	* @param Node* r: Pointer to addy of the node 
+	*/
+	Node* insert (Entry e, Node* r, bool isXLevel){ 
+
+		if ( r == NULL)				// base case
+			return new Node*(e);
+		
+		// this is the place to check and see if our distances are within bound, if not then don't insert,
+		if (r -> key == e -> key)	// base case 
+
+			return r;
+
+		// for X Level : 
+		if (e -> key < r -> key){
+			r -> left_ = insert (e, r-> left_, !isXLevel);     //
+		} else {
+			r -> right_ = insert (e, r -> right_, !isXLevel);	//
+		} 
+
+		//for Y Level
+		if (e -> key > r -> key){
+			r -> left_ = insert (e, r-> left_, !isXLevel);     //
+		} else {
+			r -> right_ = insert (e, r -> right_, !isXLevel);	//
+		} 
+
+		return r;
+	}

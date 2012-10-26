@@ -144,8 +144,8 @@ void hw04_vincensd_v3App::setup()
 		}
 		
 		/** test output in Autos window 
-		cout << "output = " << &entryArr[2] << endl;
-		cout << "output = " << &entryArr[3] << endl;
+		cout << "output = " << &entryArr[0] << endl;
+		cout << "output = " << &entryArr[1] << endl;
 		cout << "output = " << &entryArr[7654] << endl;
 		*/
 
@@ -164,29 +164,30 @@ void hw04_vincensd_v3App::setup()
         }
 
 		  /** test output in Autos window*/ 
-		cout << "output = " << &entryArr[2] << endl;
-		cout << "output = " << &entryArr[3] << endl;
+		cout << "output = " << &entryArr[0] << endl;
+		cout << "output = " << &entryArr[1] << endl;
 		cout << "output = " << &entryArr[7654] << endl;
 
 
 		// call build to create data structure
 		vincensdStarbucks starObject;
-		starObject.build(entryArr, entrySize );	   // correct because of *entryArr, what build is expecting; an Entry* type
+		starObject.build( entryArr, entrySize );	   // correct because of *entryArr, what build is expecting; an Entry* type
 		//starObject.build( &entryArr, entrySize ); // this would be incorrect because I already declared entryArr to be a pointer *entryArr 
-		//delete [] entryArr;						// on return from build, delete this array and free up memory
+		//delete [] entryArr;						// on return from build, delete this array and free up memory			
 												   // use array in build space to do calculations	
 		
 
 
 /** 	//Entry* getNearest(double x, double y)*/	
 
-		starObject.getNearest(.405029495, .0869224385);
+		//starObject.getNearest(.405029495, .0869224385); // mcAllen Tx
+		starObject.getNearest( 0.213636113, 0.438262 );  // sedona, az
+		
+
 
 		//show object
-		//cout << "Closets neighbor is: " *e.indentifier << endl;
+		cout << "Closets neighbor is: " << starObject.closestBucks -> identifier << endl;
 
-
-				
 	
 		/** DESTROY object
 		*/

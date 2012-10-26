@@ -53,9 +53,10 @@
 		for (int i = 0; i <= (arraySize-1); i++ ){ 
 			entryArrBld[i] = *c;		// put in the dereferenced Entry object into array slot
 			c = c + 1;					// add 48 bytes (size of Entry object) to the address of c to get the next entry
+										// http://www.cs.fsu.edu/~myers/cgs4406/notes/pointers.html
 		}
 
-		cout << "output = " << &entryArrBld[2] << endl;
+		cout << "output = " << &entryArrBld[0] << endl;
 		cout << "output = " << &entryArrBld[7654] << endl;
 	}
 	
@@ -67,7 +68,7 @@
 	
 	Entry* vincensdStarbucks::getNearest(double x, double y) {
 		
-		Entry* e;
+		//Entry* e;
 		double qX = x;
 		double qY = y;
 		double difX, finX ;
@@ -78,7 +79,7 @@
 		double distanceSmallest = 1.1;
 
 		// loop thru points
-		for (int i = 1; i <= arraySize; i++) {
+		for (int i = 0; i <= arraySize; i++) {
 				
 			double starX = entryArrBld[i].x;
 			double starY = entryArrBld[i].y;
@@ -92,17 +93,18 @@
 
 
 		double distanceTwo = sqrt( finX + finY );
-			if  (distanceTwo < distanceSmallest)
+			if  (distanceTwo < distanceSmallest){
 					distanceSmallest = distanceTwo;
 					// ? how to equate the Entry w/ the smallest (x,y) coords
-					e = &entryArrBld[i]; // make e = to the '&' address of entryArrBld
-		  }
+					closestBucks = &entryArrBld[i]; // make Entry* = to the '&' address of entryArrBld
+					} // i ends up = 7656, one more than the arraySize of 7655, and two more than the iterations which should be 7654
+		  } // end for
 
 		//check result of shortestDistance
-		cout << "Identity is: " << e ;
+		cout << "Identity is: " << closestBucks ;
 		
 		// return the Entry with the nearest location
-		return e;
+		return closestBucks;
 		
 		
 

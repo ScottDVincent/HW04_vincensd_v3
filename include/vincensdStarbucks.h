@@ -31,6 +31,7 @@ public:
 	// Members vars
 	Entry* entryArrBld; 
 	int arraySize;
+	Entry* closestBucks;
 
 	/**
 	Constructor Method

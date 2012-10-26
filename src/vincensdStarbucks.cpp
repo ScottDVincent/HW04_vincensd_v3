@@ -21,12 +21,9 @@
 	 * Constructs Node object which points to itself and has a data_ member
 	 */  
 
-	Node::Node () {}
-	
 	Node::Node(){
 		left_ = right_ = NULL;		// create node; the assignments go in reverse order
-		data = new Entry();		
-		
+		data = new Entry();			
 	}
 
 
@@ -40,7 +37,7 @@
 	*vincensdStarbucks constructor
 	do I really need a constructor with parameters?
 	 */ 
-	//vincensdStarbucks::vincensdStarbucks( /** what do I want in here?  */){}
+	//vincensdStarbucks::vincensdStarbucks( /** what do I want in here?  */ ){}
 	
 
 
@@ -58,6 +55,7 @@
 
 	//rename to buildArray
 	void vincensdStarbucks::build(Entry* c, int n){
+		//will call insert
 		
 		//int addyCounter = c;
 		//Entry *entryArrBld = new Entry [n];	// as in setup, we have to do a dynamic array definition to use 'n'
@@ -76,13 +74,16 @@
 		cout << "output = " << &entryArrBld[7654] << endl;
 	}
 	
+	
+
+
+
 	/*
 	 * Return a pointer to the entry that is closest to the given coordinates. Your
 	 *  answer may be approximate, but then you will lose points on the "Accuracy" quality measure
-/**	 */
-
-	
+	 */
 	Entry* vincensdStarbucks::getNearest(double x, double y) {
+		// will call search
 		
 		//Entry* e;
 		double qX = x;
@@ -128,19 +129,21 @@
 
 	
 	/**
-	* void search
-	* @param string: Key value
+	* Entry* search
+	* @param double xQ
+	* @param double yQ
 	* @param Node* r: Pointer to addy of the node 
+	* @param bool isXLevel
 	*/
-	Entry* search(double xK, double yK, Node* r, bool isXLevel){ 
+	Entry* vincensdStarbucks::search(double xQ, double yQ, Node* r, bool isXLevel){ 
 
-		if (r == NULL)				//base case
+		if (r == NULL)								//base case
 			return NULL;
-		if ( (xK  == r -> Key) && (yK  == r -> Key) )   // this would never happen that q would be the exact location
-			return r -> closestBucks;						
+		if ( (xQ  == r -> data.x) && (yQ  == r -> data.y) )   // this would never happen that q would be the exact location
+			return r -> data;						
 
-		Entry* best_left = search (xK, yK, r -> left_, !isXLevel);
-		Entry* best_right = search (xK, yK, r -> right_, !isXLevel);
+		Entry* best_left = search (xQ, yQ, r -> left_, !isXLevel);
+		Entry* best_right = search (xQ, yQ, r -> right_, !isXLevel);
 		Entry* current_entry = r -> data;
 
 	} //end search
@@ -151,30 +154,39 @@
 	* void insert
 	* @param Entry: Entry object we are adding to the tree
 	* @param Node* r: Pointer to addy of the node 
+	* @paramL bool isXLevel
 	*/
-	Node* insert (Entry e, Node* r, bool isXLevel){ 
+	Node* vincensdStarbucks::insert (Entry e, Node* r, bool isXLevel){ 
 
 		if ( r == NULL)				// base case
 			return new Node*(e);
 		
 		// this is the place to check and see if our distances are within bound, if not then don't insert,
+					//find xdist abs(e.x - r ->data.x) // |x1 - x2| <= 0.00001
+					//find yDist abs(e.y - r ->data.y) // |y1 - y2| <= 0.00001 
+					// if ( xdist < .00001) && ( yDist < .00001
 		if (r -> key == e -> key)	// base case 
 
 			return r;
 
+		if (isXLevel) {
 		// for X Level : 
-		if (e -> key < r -> key){
-			r -> left_ = insert (e, r-> left_, !isXLevel);     //
-		} else {
-			r -> right_ = insert (e, r -> right_, !isXLevel);	//
-		} 
-
+			if (e -> data.x < r -> data.x){
+				r -> left_ = insert (e, r-> left_, !isXLevel);     //
+			} else {
+				r -> right_ = insert (e, r -> right_, !isXLevel);	//
+			} 
+		
 		//for Y Level
-		if (e -> key > r -> key){
-			r -> left_ = insert (e, r-> left_, !isXLevel);     //
 		} else {
-			r -> right_ = insert (e, r -> right_, !isXLevel);	//
-		} 
+
+			if (e -> data.y < r -> data.y){
+				r -> left_ = insert (e, r-> left_, !isXLevel);     //
+			} else {
+				r -> right_ = insert (e, r -> right_, !isXLevel);	//
+			}
+
+		} // end if (isXLevel)
 
 		return r;
 	}

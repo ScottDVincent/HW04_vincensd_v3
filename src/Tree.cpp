@@ -221,6 +221,25 @@ using namespace std;		// standard library
 
 	/** 
 	Node* max
+	* code from remove / test
+	*
+	*/
+	Node* max(Node* r){
+	
+	}
+
+
+
+	/** 
+	Node* sort
 	* code from remove
 	*
 	*/
+
+	void sort(){
+		for (i=0, i<=(n-1), i++){
+			isert arr[i];
+		}
+		printInOrder (root)
+
+	}

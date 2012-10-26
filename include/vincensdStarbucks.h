@@ -24,6 +24,24 @@ using namespace std;
 std::stringstream;
 
 
+ class Node{
+public:		
+
+//constructors
+	Node();
+	Node(Entry e);
+
+			
+	// node pointers in the tree
+	Node* left_;
+	Node* right_;
+	
+	// a Entry object to hold data	
+	Entry* data;		
+
+
+   };   // end member declarations
+
  
  class vincensdStarbucks : public Starbucks{
 public:
@@ -80,24 +98,25 @@ public:
 	Destructor Method
 	*/
 
+	/**
+	* Entry* search
+	* @param double xQ
+	* @param double yQ
+	* @param Node* r: Pointer to addy of the node 
+	* @param bool isXLevel
+	*/
+	Entry* search(double xQ, double yQ, Node* r, bool isXLevel);
+
+
+	/**
+	* void insert
+	* @param Entry: Entry object we are adding to the tree
+	* @param Node* r: Pointer to addy of the node 
+	* @paramL bool isXLevel
+	*/
+	Node* insert (Entry e, Node* r, bool isXLevel);
+
 
 };
 
- class Node{
-public:		
-
-//constructors
-	Node();
-	Node(Entry e);
-
-			
-	// node pointers in the tree
-	Node* left_;
-	Node* right_;
-	
-	// a Entry object to hold data	
-	Entry* data;		
-
-
-   };   // end member declarations
 

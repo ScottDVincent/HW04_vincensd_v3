@@ -48,7 +48,7 @@ public:
 	* void printInOrder
 	* @param Node* r: Pointer to addy of the node 
 	*/
-	void printInOrder (Node* r)
+	void printInOrder (Node* r);
 
 
 	/**
@@ -71,7 +71,7 @@ public:
 	* @param node* r 
 	* @param key
 	*/
-	Node* next(Node* r, key) ; 
+	Node* next(Node* r, key); 
 	
 
 	/**
@@ -86,10 +86,18 @@ public:
 	* @param Node* r
 	* @param k
 	*/
-	Node* remove (Node* r, key)
+	Node* remove (Node* r, key);
 
 	/**
 	* Node* min
 	* 
 	*/
 	Node* min(Node* r);
+
+
+	/** 
+	Node* sort
+	* code from remove
+	*
+	*/
+	void sort();

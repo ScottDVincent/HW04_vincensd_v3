@@ -43,13 +43,14 @@ public:
    };   // end member declarations
 
  
- class vincensdStarbucks : public Starbucks{
+ class vincensdStarbucks : public Starbucks{  // using Starbucks.h as an interface
 public:
 	
 	// Members vars
 	Entry* entryArrBld; 
 	int arraySize;
 	Entry* closestBucks;
+	Node* newNode;
 
 	/**
 	double keyX;
@@ -85,14 +86,18 @@ public:
 	 This is guaranteed to happen, by the way, because some Starbucks locations are listed in the database twice. 
 	 We will define two locations to be the "same location" if both |x1 - x2| <= 0.00001 and |y1 - y2| < 0.00001
 	 */
-	void build(Entry* c, int n) ;
+	void build(Entry* c, int n);
+	//and
+	void buildArray(Entry* c, int n);
 	
+
 	/*
 	 * Return a pointer to the entry that is closest to the given coordinates. Your
 	 *  answer may be approximate, but then you will lose points on the "Accuracy" quality measure
 	 */
 	Entry* getNearest(double x, double y);
-	
+	//and
+	Entry* getNearestArray(double x, double y);
 	
 	/**
 	Destructor Method
@@ -114,7 +119,7 @@ public:
 	* @param Node* r: Pointer to addy of the node 
 	* @paramL bool isXLevel
 	*/
-	Node* insert (Entry e, Node* r, bool isXLevel);
+	Node* insert (Entry* e, Node* r, bool isXLevel);
 
 
 };

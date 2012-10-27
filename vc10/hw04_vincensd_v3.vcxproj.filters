@@ -18,9 +18,6 @@
     <ClCompile Include="..\src\hw04_vincensd_v3App.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Tree.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\vincensdStarbucks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -30,9 +27,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Starbucks.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Tree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\vincensdStarbucks.h">

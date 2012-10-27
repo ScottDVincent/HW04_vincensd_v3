@@ -178,17 +178,19 @@ void hw04_vincensd_v3App::setup()
 
 		// call BUILD to create data structure
 		vincensdStarbucks starObject;
-		starObject.build( entryArr, entrySize );	 // correct because of *entryArr definition, what build is expecting; an Entry* type
-		//starObject.build( &entryArr, entrySize );  // this would be incorrect because I already declared entryArr to be a pointer *entryArr 
+		
+		//starObject.buildArray( entryArr, entrySize ); // correct because of *entryArr definition, what build is expecting; an Entry* type
+		//starObject.build( &entryArr, entrySize );  //  incorrect because I already declared entryArr to be a pointer *entryArr 
+		starObject.build( entryArr, entrySize );
+		
 		delete [] entryArr;							 // on return from build, delete this array and free up memory			
 												  	
-		
-
-		 //  use array in build space to do calculations
+		//  use array in build space to do calculations
 	  	//Entry* getNearest(double x, double y)*/	
 
-		//starObject.getNearest(.405029495, .0869224385); // mcAllen Tx
-		starObject.getNearest( 0.213636113, 0.438262 );  // sedona, az
+		//starObject.getNearestArray(.405029495, .0869224385); // mcAllen Tx
+		//starObject.getNearestArray( 0.213636113, 0.438262 );  // sedona, az
+		starObject.getNearestArray( 0.213636113, 0.438262 );  // sedona, az
 		
 
 		//display returned nearest object

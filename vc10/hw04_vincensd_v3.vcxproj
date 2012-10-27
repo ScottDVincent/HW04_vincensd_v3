@@ -105,13 +105,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\src\hw04_vincensd_v3App.cpp" />
-    <ClCompile Include="..\src\Tree.cpp" />
     <ClCompile Include="..\src\vincensdStarbucks.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Resources.h" />
     <ClInclude Include="..\include\Starbucks.h" />
-    <ClInclude Include="..\include\Tree.h" />
     <ClInclude Include="..\include\vincensdStarbucks.h" />
   </ItemGroup>
   <ItemGroup>

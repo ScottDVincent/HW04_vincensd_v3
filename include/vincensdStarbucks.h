@@ -19,6 +19,9 @@
 #include <vector>
 #include <math.h>
 #include <cmath>
+#include <algorithm>
+#include <functional>
+
 
 using namespace std;
 std::stringstream;
@@ -47,10 +50,15 @@ public:
 public:
 	
 	// Members vars
-	Entry* entryArrBld; 
-	int arraySize;
-	Entry* closestBucks;
-	Node* newNode;
+	Entry* entryArrBld;		// holds our array from build to use in getNearest 
+	vector<Entry> buildVec;	// holds our vector from build to use in getNearest
+	int arraySize;			// size of array after we remove duplicates
+	Entry* closestBucks;	// object of closeest Starbucks
+	Node* newNode;			// new node in tree
+	Node* root;				// root node in tree
+	Node* r;				// root node of a sub-tree in tree
+	
+	
 
 	/**
 	double keyX;
@@ -58,7 +66,6 @@ public:
 	bool isXLevel;
 	bool isYLevel;
 	*/
-
 
 
 	/**
@@ -71,11 +78,6 @@ public:
 	// stuff constructor 
 	//vincensdStarbucks::vincensdStarbucks( /** what do I want */);
 
-	/** 
-	Member vars
-	*/
-	//vector<Entry> entryVec;
-	
 
 	/*
 	 * add all entries in the array to your data structure
@@ -89,6 +91,8 @@ public:
 	void build(Entry* c, int n);
 	//and
 	void buildArray(Entry* c, int n);
+	//and
+	void buildTree(Entry* c, int n);
 	
 
 	/*
@@ -98,6 +102,8 @@ public:
 	Entry* getNearest(double x, double y);
 	//and
 	Entry* getNearestArray(double x, double y);
+	//and
+	Entry* getNearestNode(double x, double y);
 	
 	/**
 	Destructor Method

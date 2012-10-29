@@ -15,7 +15,7 @@
  */
  
 #include "vincensdStarbucks.h"
-
+using namespace std;
 
 	/** 
 	 * Constructs Node object which points to itself and has a data_ member
@@ -58,20 +58,126 @@
 	 This is guaranteed to happen, by the way, because some Starbucks locations are listed in the database twice. We will define two locations to be the "same location" if both |x1 - x2| <= 0.00001 and |y1 - y2| < 0.00001
 	 */
 
+	///////////////////////////////////////////////////////
 
 
 	void vincensdStarbucks::build(Entry* c, int n){
+		//will call insert
+		double threshold = 0.00001;
 
+		//vector<Entry> buildVec;	
+		//storage.push_back(n);	
+		// Convert from array back to vector to remove duplicates and randomize
+		for(int i = 0; i <= (n-1); i++)	{	
+			buildVec.push_back(c[i]);		
+		}	
+		
+		// Check for duplicate locations.  (can use .dot operator to check points
+		for(int i = 0; i < buildVec.size(); i++) {	
+			for(int j = i + 1; j < buildVec.size(); j++) {		
+				if(abs(buildVec[i].x - buildVec[j].x) <= threshold)		//and
+					if(abs(buildVec[i].y - buildVec[j].y) <= threshold)		
+						buildVec.erase(buildVec.begin() + i - 1);	
+			}
+		}
+		
+		// cout << "output = " << buildVec.size() << endl;
+		
+		// have to update arraySize to new size of  vector
+		arraySize =  buildVec.size();  
+
+		// Shuffles vector to make it random	
+		std::random_shuffle(buildVec.begin(), buildVec.end());	
+		
+
+		/** turn into array and use in getNearest in tree format
+
+		entryArrBld = new Entry[arraySize];	
+		// Copies all values from the vector to the array	
+		for(int i = 0; i < buildVec.size(); i++) {		
+			entryArrBld[i] = buildVec[i];
+		}
+		*/
+		
+		
+		/** Test ranges
+		cout << "output = " << &entryArrBld[0] << endl;
+		cout << "output = " << &entryArrBld[1] << endl;
+		cout << "output = " << &entryArrBld[arraySize-2] << endl;
+		cout << "output = " << &entryArrBld[arraySize-1] << endl;
+		*/
+
+	} // end build
+	
+	/** Return a pointer to the entry that is closest to the given coordinates. Your
+	 *  answer may be approximate, but then you will lose points on the "Accuracy" quality measure
+	 */
+	
+	Entry* vincensdStarbucks::getNearest(double x, double y) {
+		// will call search
+		
+		//Entry* e;
+		double qX = x;
+		double qY = y;
+		double difX, finX ;
+		double difY, finY;
+		
+		// set distance of first point
+		double distanceSmallest = 1.1;
+
+		
+		// loop thru points
+			for (int i = 0; i <= (buildVec.size()-1); i++) {
+				
+			double starX = buildVec[i].x;
+			double starY = buildVec[i].y;
+
+			// find x
+			difX = abs(qX - starX);
+			finX = pow(difX, 2);
+			// find y
+			difY = abs(qY - starY);
+			finY = pow(difY, 2);
+
+
+		double distanceTwo = sqrt( finX + finY );
+			if  (distanceTwo < distanceSmallest){
+					distanceSmallest = distanceTwo;
+					//  equate the Entry w/ the smallest (x,y) coords
+					closestBucks = &buildVec[i]; // make Entry* = to the '&' address of entryArrBld
+					} 
+		  } // end for
+
+		//check result of shortestDistance
+		cout << "Identity is: " << closestBucks ;
+		
+		// return the Entry with the nearest location
+		return closestBucks;
+		
+
+	} // end getNearest
+
+
+
+	///////////////// TREE BASED ATTEMPT ////////////////////////////////////////////
+	void vincensdStarbucks::buildTree(Entry* c, int n){
+
+		root = NULL;
+		r = NULL;
+		arraySize = n;
 		bool isXLevel = true;
 		int levelCounter = 0;
-		arraySize = n;
-		int median = n/2; // will give us a whole number
+		
+		//don't need to find median, only if sorted
+		//int median = n/2; // will give us a whole number
+		//need to get middle Entry
+		//c = c + median;
+		
 
-		//need to get randomized middle Entry
-		c = c + median;
-		// ?? now what to do with it ??
+		// have to create root node
+		root = insert(c, r, isXLevel);
 
-		// loop through array 'c' == no!! can't treat this like an array
+		// loop through array 'c' 
 
 		for (int i = 0; i <= (arraySize-1); i++ ){ 
 			// check level; even = true, odd = false
@@ -94,9 +200,10 @@
 	* @param Node* r: Pointer to addy of the node 
 	* @paramL bool isXLevel
 	*/
-	Node* vincensdStarbucks::insert (Entry* e, Node* r, bool isXLevel){ 
+	Node* vincensdStarbucks::insert(Entry* e, Node* r, bool isXLevel){ 
 
 		 double xDist, yDist; 
+		 double threshold = 0.00001;
 
 		if ( r == NULL)				// base case
 			newNode = new Node(*e);
@@ -109,7 +216,7 @@
 			*/
 		 xDist = abs((e -> x) - (r -> data -> x));  // |x1 - x2|<= 0.00001
 		 yDist = abs((e -> y) - (r -> data -> y));  // |y1 - y2|  <= 0.00001  
-		 if ( (xDist <= .00001) && ( yDist <= .00001) )
+		 if ( (xDist <= threshold) && ( yDist <= threshold) )
 			return r;
 
 		if (isXLevel) {
@@ -142,7 +249,7 @@
 	 * Return a pointer to the entry that is closest to the given coordinates. Your
 	 *  answer may be approximate, but then you will lose points on the "Accuracy" quality measure
 	 */
-	Entry* vincensdStarbucks::getNearest(double x, double y) {
+	Entry* vincensdStarbucks::getNearestNode(double x, double y) {
 		// vars
 		//Entry* e;
 		
@@ -208,6 +315,7 @@
 		Entry* best_left  = search (qX, qY, r -> left_, !isXLevel);
 		Entry* best_right = search (qX, qY, r -> right_, !isXLevel);
 		Entry* current_entry = r -> data;
+		// have to check distance here to see how far you are away from the Node you find in the tree
 
 
 		// ?? have to do something to keep track of our depth/level ??
@@ -229,78 +337,3 @@
 
 	} //end search
 
-
-	////////////////////////// ARRAY CODE ////////////////////////////////////////////////
-	
-	/** Return a pointer to the entry that is closest to the given coordinates. Your
-	 *  answer may be approximate, but then you will lose points on the "Accuracy" quality measure
-	 */
-	
-	Entry* vincensdStarbucks::getNearestArray(double x, double y) {
-		// will call search
-		
-		//Entry* e;
-		double qX = x;
-		double qY = y;
-		double difX, finX ;
-		double difY, finY;
-		
-		// set distance of first point
-		double distanceSmallest = 1.1;
-
-		// loop thru points
-		for (int i = 0; i <= (arraySize-1); i++) {
-				
-			double starX = entryArrBld[i].x;
-			double starY = entryArrBld[i].y;
-
-			// find x
-			difX = abs(qX - starX);
-			finX = pow(difX, 2);
-			// find y
-			difY = abs(qY - starY);
-			finY = pow(difY, 2);
-
-
-		double distanceTwo = sqrt( finX + finY );
-			if  (distanceTwo < distanceSmallest){
-					distanceSmallest = distanceTwo;
-					// ? how to equate the Entry w/ the smallest (x,y) coords
-					closestBucks = &entryArrBld[i]; // make Entry* = to the '&' address of entryArrBld
-					} // ?? i ends up = 7656, one more than the arraySize of 7655, and two more than the iterations which should be 7654, but 7653 actually shows the last entry (yuma, az)
-		  } // end for
-
-		//check result of shortestDistance
-		cout << "Identity is: " << closestBucks ;
-		
-		// return the Entry with the nearest location
-		return closestBucks;
-		
-
-	} // end getNearestArray
-
-	
-///////////////////////////////////////////////////////
-
-
-	void vincensdStarbucks::buildArray(Entry* c, int n){
-		//will call insert
-		
-		//int addyCounter = c;
-		//Entry *entryArrBld = new Entry [n];	// as in setup, we have to do a dynamic array definition to use 'n'
-		entryArrBld  = new Entry [n];
-		arraySize = n;
-
-		for (int i = 0; i <= (arraySize-1); i++ ){ 
-			entryArrBld[i] = *c;		// put in the dereferenced Entry object into array slot
-			c = c + 1;					// add 48 bytes (size of Entry object) to the address of c to get the next entry
-										// http://www.cs.fsu.edu/~myers/cgs4406/notes/pointers.html
-		}
-
-		cout << "output = " << &entryArrBld[0] << endl;
-		cout << "output = " << &entryArrBld[1] << endl;
-		cout << "output = " << &entryArrBld[7653] << endl;
-		cout << "output = " << &entryArrBld[7654] << endl;
-	}
-	
-	

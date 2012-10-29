@@ -1,7 +1,7 @@
 /*****
  * File: hw04_vincensd_v3App.cpp	
  * Author   : vincensd
- * Date     : 2012-10-10
+ * Date     : 2012-28-10
  * Purpose  :  
  * Sources  : 
  http://www.dreamincode.net/forums/topic/95826-stringstream-tutorial/
@@ -22,7 +22,6 @@
 #include "cinder/Text.h"
 
 //my includes
-//#include "vincensdStarbucks.cpp"
 #include "vincensdStarbucks.h"
 
 //c++ includes
@@ -88,7 +87,7 @@ void hw04_vincensd_v3App::setup()
 	//Fill the vector with entry data
 	  do { //while ( !infile.eof() )
 		     
-		Entry e;		// for each iteration create a new entry vaiable to hold the input values, don't need a cnostructed object
+		Entry e;		// for each iteration create a new entry variable to hold the input values, don't need a constructed object
 		//Entry* e = new Entry();		// Mikes code: would cause a memory leak as we are not destroying the object at end 
 		
 
@@ -106,8 +105,6 @@ void hw04_vincensd_v3App::setup()
 		while ( !infile.eof() );
 
 	
-
-
 	/**CHECK FOR VALID INPUT
 		// just look at debugger to see entries
 		//	cout << "End reading file" << endl;					
@@ -119,8 +116,7 @@ void hw04_vincensd_v3App::setup()
 	*/
 		
 
-
-/**   // transform vector into array
+/**   TRANSFORM VECTOR INTO ARRAY
 //http://www.cplusplus.com/reference/algorithm/copy/
 //http://stackoverflow.com/questions/2923272/how-to-convert-vector-to-array-c
 //http://choorucode.wordpress.com/2010/05/25/c-stl-copy-vector-to-array/
@@ -134,11 +130,9 @@ void hw04_vincensd_v3App::setup()
 		*/
 
 		 const int entrySize = entryVec.size();					// size of new array
-
-
+		 
 		 Entry *entryArr = new Entry [ entryVec.size() ];		// have to create a dynamic array of type Entry
 																// http://bytes.com/topic/c/answers/849132-std-vector-c-array
-
 
 		 // copy vector into array: two approaches
 		// std::copy(entryVec.begin(), entryVec.end(), entryArr); 
@@ -166,8 +160,8 @@ void hw04_vincensd_v3App::setup()
             Entry temp = entryArr[i]; 
 			entryArr[i] = entryArr[r]; 
 			entryArr[r] = temp;
-        }
-		*/
+        }*/
+		
 
 		  /** test output in Autos window*/ 
 		cout << "output = " << &entryArr[0] << endl;
@@ -189,8 +183,8 @@ void hw04_vincensd_v3App::setup()
 	  	//Entry* getNearest(double x, double y)*/	
 
 		//starObject.getNearestArray(.405029495, .0869224385); // mcAllen Tx
-		//starObject.getNearestArray( 0.213636113, 0.438262 );  // sedona, az
-		starObject.getNearestArray( 0.213636113, 0.438262 );  // sedona, az
+		starObject.getNearest( 0.213636113, 0.43826200 );  // sedona, az
+		starObject.getNearest( 0.213630099, 0.44826200 );  // flagstaff, az
 		
 
 		//display returned nearest object
